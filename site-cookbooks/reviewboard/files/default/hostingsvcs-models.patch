@@ -1,0 +1,15 @@
+--- models.py.orig      2013-10-29 15:30:05.404131968 +0900
++++ models.py   2013-10-29 15:30:29.633132715 +0900
+@@ -8,9 +8,9 @@
+
+
+ class HostingServiceAccount(models.Model):
+-    service_name = models.CharField(max_length=128)
+-    hosting_url = models.CharField(max_length=255, blank=True, null=True)
+-    username = models.CharField(max_length=128)
++    service_name = models.CharField(max_length=64)
++    hosting_url = models.CharField(max_length=128, blank=True, null=True)
++    username = models.CharField(max_length=32)
+     data = JSONField()
+     visible = models.BooleanField(default=True)
+     local_site = models.ForeignKey(LocalSite,
