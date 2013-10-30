@@ -1,6 +1,5 @@
 {
   "run_list": [
-    "recipe[supervisord]",
     "recipe[memcached]",
     "recipe[mysql::server]",
     "recipe[apache]",

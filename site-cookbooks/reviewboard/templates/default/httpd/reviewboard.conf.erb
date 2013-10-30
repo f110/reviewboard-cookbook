@@ -1,36 +1,3 @@
-ServerRoot "<%= @root %>"
-PidFile <%= @root %>/httpd.pid
-Timeout 300
-KeepAlive On
-MaxKeepAliveRequests 100
-KeepAliveTimeout 15
-
-Listen <%= @port %>
-
-User <%= @user %>
-Group <%= @group %>
-ServerAdmin admin@localhost.localdomain
-ServerName <%= @domain %>
-UseCanonicalName Off
-DocumentRoot "<%= @root %>"
-
-DefaultType text/plain
-HostnameLookups Off
-TypesConfig /etc/mime.types
-LimitRequestBody 5242880
-ServerSignature On
-
-<Directory />
-  Options FollowSymLinks
-  AllowOverride None
-</Directory>
-
-LogLevel warn
-LogFormat "%h %l %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-LogFormat "host:%h\tident:%l\tuser:%u\ttime:%{%d/%b/%Y:%H:%M:%S %z}t\treq:%r\tstatus:%>s\tsize:%b\treferer:\%{Referer}i\tua:%{User-Agent}i\treqtime_microsec:%D" combined_ltsv
-ErrorLog "<%= @root %>/logs/error.log"
-CustomLog "<%= @root %>/logs/access.log" combined_ltsv
-
 <IfModule prefork.c>
   StartServers      3
   MinSpareServers   2
@@ -39,6 +6,7 @@ CustomLog "<%= @root %>/logs/access.log" combined_ltsv
   MaxRequestsPerChild  10000
 </IfModule>
 
+WSGIPythonPath "<%= @rb_prefix %>/lib/python<%= @py_version %>/site-packages"
 <VirtualHost *:<%= @port %>>
   ServerName <%= @domain %>
   DocumentRoot "<%= @root %>"
@@ -47,15 +15,15 @@ CustomLog "<%= @root %>/logs/access.log" combined_ltsv
   ErrorDocument 500 /errordocs/500.html
 
   WSGIPassAuthorization On
-  WSGIScriptAlias "/" "<%= @root %>/www/htdocs/reviewboard.wsgi/"
+  WSGIScriptAlias "/" "<%= @root %>/htdocs/reviewboard.wsgi/"
 
   <Directory "<%= @root %>/www/htdocs">
     Options -Indexes +FollowSymLinks
   </Directory>
 
   # Alias static media requests to filesystem
-  Alias /media "<%= @root %>/www/htdocs/media"
-  Alias /static "<%= @root %>/www/htdocs/static"
-  Alias /errordocs "<%= @root %>/www/htdocs/errordocs"
-  Alias /favicon.ico "<%= @root %>/www/htdocs/static/rb/images/favicon.png"
+  Alias /media "<%= @root %>/htdocs/media"
+  Alias /static "<%= @root %>/htdocs/static"
+  Alias /errordocs "<%= @root %>/htdocs/errordocs"
+  Alias /favicon.ico "<%= @root %>/htdocs/static/rb/images/favicon.png"
 </VirtualHost>

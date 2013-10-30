@@ -2,8 +2,7 @@
 python_version = "#{major}.#{minor}"
 
 pip_binary = "#{node['reviewboard']['prefix']}/bin/pip"
-installed_packages = `#{pip_binary} list`.split("\n")
-reviewboard_version = installed_packages.grep(/ReviewBoard/i).first.scan(/[0-9.]+/).first
+reviewboard_version = node['reviewboard']['version']
 
 egg_path = "#{node['reviewboard']['prefix']}/lib/python#{python_version}/site-packages/ReviewBoard-#{reviewboard_version}-py#{python_version}.egg"
 

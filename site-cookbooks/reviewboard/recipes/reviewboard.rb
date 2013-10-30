@@ -7,14 +7,19 @@ node['reviewboard']['dependence']['packages'].each do |p_name|
   end
 end
 
-installed_package = `#{pip_binary} list`.split("\n")
 
 execute "install depends on modules" do
   command "#{easy_install} mysql-python"
-  not_if {installed_package.grep(/mysql-python/i).count > 0}
+  not_if do
+    installed_package = `#{pip_binary} list`.split("\n")
+    installed_package.grep(/mysql-python/i).count > 0
+  end
 end
 
 execute "install reviewboard" do
-  command "#{easy_install}  ReviewBoard"
-  not_if { installed_package.grep(/ReviewBoard/i).count > 0}
+  command "#{easy_install} ReviewBoard==#{node['reviewboard']['version']}"
+  not_if do
+    installed_package = `#{pip_binary} list`.split("\n")
+    installed_package.grep(/ReviewBoard/i).count > 0
+  end
 end

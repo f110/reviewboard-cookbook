@@ -1,7 +1,9 @@
-databases = `mysql -u root -N -e 'SHOW DATABASES LIKE "#{node['reviewboard']['database']['name']}"'`
 execute "create database" do
   command "mysql -u root -e 'create database #{node['reviewboard']['database']['name']}'"
-  not_if {!databases.nil? && databases.split("\n").count() > 0}
+  not_if do
+    databases = `mysql -u root -N -e 'SHOW DATABASES LIKE "#{node['reviewboard']['database']['name']}"'`
+    !databases.nil? && databases.split("\n").count() > 0
+  end
 end
 
 execute "create user" do
