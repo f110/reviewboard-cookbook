@@ -6,6 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "fedora19"
+  config.vm.box_url = "http://www.ds-12.com/box/Fedora19.box"
   config.vm.hostname = "rb.local"
   config.vm.network :private_network, ip: "192.168.50.12"
 end
