@@ -12,3 +12,7 @@ node['apache']['packages'].each do |p_name|
     action :install
   end
 end
+
+service "httpd" do
+  action [:enable, :start]
+end
