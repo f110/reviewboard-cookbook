@@ -5,7 +5,7 @@
   $ vagrant ssh-config --host=rb >> ~/.ssh/config
   $ bundle exec knife solo cook rb
 
-# Dependecies
+# Dependencies
 
 - Virtualbox 4.3
 - vagrant 1.3.5
