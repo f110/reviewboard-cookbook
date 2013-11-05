@@ -11,7 +11,7 @@ directory '/run/mysqld' do
 end
 
 template '/etc/my.cnf' do
-  source 'etc/my.cnf.master.erb'
+  source 'etc/my.cnf.erb'
   mode 0644
   owner 'root'
   group 'root'

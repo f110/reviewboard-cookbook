@@ -1,3 +1,5 @@
+default['mysql']['server']['user'] = 'mysql'
+default['mysql']['server']['group'] = 'mysql'
 default['mysql']['server']['id'] = 1
 
 case node['platform_family']

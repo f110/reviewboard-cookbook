@@ -1,5 +1,5 @@
 execute "create database" do
-  command "mysql -u root -e 'create database #{node['reviewboard']['database']['name']}'"
+  command "mysql -u root -e 'CREATE DATABASE #{node['reviewboard']['database']['name']} DEFAULT CHARACTER SET utf8'"
   not_if do
     databases = `mysql -u root -N -e 'SHOW DATABASES LIKE "#{node['reviewboard']['database']['name']}"'`
     !databases.nil? && databases.split("\n").count() > 0
